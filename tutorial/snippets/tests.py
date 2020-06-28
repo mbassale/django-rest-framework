@@ -41,8 +41,10 @@ class SnippetSerializerTest(APITestCase):
         self.assertIsNotNone(new_snippet)
         self.assertNotEqual(snippet.id, new_snippet.id)
 
-        new_snippet.title = 'Updated code'
-        new_snippet.code = 'print("Hi, World!")\n'
+        new_title = 'Updated code'
+        new_code = 'print("Hi, World!")'
+        new_snippet.title = new_title
+        new_snippet.code = new_code
         serializer = SnippetSerializer(new_snippet)
         new_content = JSONRenderer().render(serializer.data)
         stream = BytesIO(new_content)
@@ -50,5 +52,5 @@ class SnippetSerializerTest(APITestCase):
         serializer = SnippetSerializer(new_snippet, data=data)
         self.assertTrue(serializer.is_valid())
         updated_snippet = serializer.save()
-        self.assertEquals(updated_snippet.title, 'Updated code')
-        self.assertEquals(updated_snippet.code, 'print("Hi, World!")')
+        self.assertEquals(updated_snippet.title, new_title)
+        self.assertEquals(updated_snippet.code, new_code)
