@@ -84,8 +84,9 @@ class SnippetViewTest(APITestCase):
         self.assertTrue(len(response.content) > 0)
         stream = BytesIO(response.content)
         data = JSONParser().parse(stream)
-        self.assertTrue(len(data) == 10)
-        for datum in data:
+        self.assertTrue('results' in data)
+        self.assertTrue(len(data['results']) == 10)
+        for datum in data['results']:
             self.assertTrue('id' in datum)
             snippet = Snippet.objects.get(pk=datum['id'])
             self.assertIsNotNone(snippet)
