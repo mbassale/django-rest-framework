@@ -6,7 +6,7 @@ from tutorial.snippets.serializers import SnippetSerializer
 
 
 @csrf_exempt
-def snippet_list(request):
+def snippet_list(request, format=None):
     """
     List all code snippets, or create a new snippet.
     :param request:
@@ -26,7 +26,7 @@ def snippet_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
-def snippet_detail(request, pk):
+def snippet_detail(request, pk, format=None):
     """
     Retrieve, updated or delete a code snippet.
     :param request:
