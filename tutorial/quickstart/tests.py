@@ -40,7 +40,8 @@ class UserViewSetTest(APITestCase):
             'username': username,
             'first_name': first_name,
             'last_name': last_name,
-            'email': email
+            'email': email,
+            'snippets': []
         })
         self.assertIsNotNone(response)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
