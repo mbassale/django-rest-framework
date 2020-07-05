@@ -1,10 +1,19 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, renderers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from tutorial.snippets.models import Snippet
 from tutorial.snippets.serializers import SnippetSerializer
 from tutorial.snippets.permissions import IsOwnerOrReadOnly
+
+
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = [renderers.StaticHTMLRenderer]
+
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
 
 
 class SnippetList(generics.ListCreateAPIView):
