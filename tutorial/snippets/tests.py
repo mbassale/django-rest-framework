@@ -39,7 +39,8 @@ class SnippetViewTest(APITestCase):
     def test_snippet_list(self):
         for _ in range(10):
             (title, code, linenos, language, style) = self.new_snippet_data()
-            snippet = Snippet(owner_id=self.user.id, title=title, code=code, linenos=linenos, language=language, style=style)
+            snippet = Snippet(owner_id=self.user.id, title=title, code=code, linenos=linenos, language=language,
+                              style=style)
             snippet.save()
         client = APIClient()
         response = client.get(reverse('snippet-list'))

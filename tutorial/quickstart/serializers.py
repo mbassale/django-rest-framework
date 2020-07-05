@@ -3,15 +3,15 @@ from tutorial.snippets.models import Snippet
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.ModelSerializer):
-    snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'last_login', 'groups', 'snippets']
+        fields = ['url', 'id', 'username', 'email', 'first_name', 'last_name', 'last_login', 'groups', 'snippets']
 
 
-class GroupSerializer(serializers.ModelSerializer):
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ['id', 'name']
+        fields = ['url', 'id', 'name']
